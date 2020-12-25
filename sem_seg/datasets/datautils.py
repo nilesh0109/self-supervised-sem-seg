@@ -8,7 +8,7 @@ class CityscapesUtils:
     def __init__(self):
         cityscapes_data = datasets.Cityscapes(CITYSCAPES_PATH, split='train', mode='fine', target_type='semantic')
         self.classes = cityscapes_data.classes
-        self.num_classes = self._num_classes
+        self.num_classes = self._num_classes()
         self.train_id2color = self._train_id2color()
         self.id2train_id = self._id2train_id()
 

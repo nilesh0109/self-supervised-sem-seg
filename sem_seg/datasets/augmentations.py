@@ -36,6 +36,7 @@ def get_tfms() -> Tuple:
     }
     return img_transforms, target_transforms
 
+cityscapes_utils = CityscapesUtils()
 
 def mapId2TrainID(mask: Image) -> torch.Tensor:
     """
@@ -43,7 +44,7 @@ def mapId2TrainID(mask: Image) -> torch.Tensor:
     :param mask: Cityscapes mask(PIL Image type) with 34 classes
     :return: mask with 19 cityscapes classes of tensor type
     """
-    return torch.from_numpy(CityscapesUtils.id2train_id[np.array(mask)]).long()
+    return torch.from_numpy(cityscapes_utils.id2train_id[np.array(mask)]).long()
 
 
 def get_spatial_tfms() -> tfms.Compose:

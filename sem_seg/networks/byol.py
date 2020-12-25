@@ -76,7 +76,7 @@ class MLPHead(nn.Module):
         return self.net(x)
 
 
-class BYOL:
+class BYOL(BYOL_Head):
     def __init__(self, backbone: nn.Module, target_momentum=0.996):
         super().__init__(backbone, target_momentum)
 

@@ -8,8 +8,9 @@ class FCN(nn.Module):
 
     def __init__(self, backbone: nn.Module, num_classes: int, model_type: str = 'fcn8s'):
         super().__init__()
+        self.backbone = backbone
         num_features = get_num_features(backbone.name, model_type)
-        self.classifier = nn.ModuleList([self.upsample_head(num_features, num_classes) for num_feature in num_features])
+        self.classifier = nn.ModuleList([self.upsample_head(num_feature, num_classes) for num_feature in num_features])
 
     def upsample_head(self, in_channels: int, channels: int) -> nn.Module:
         """

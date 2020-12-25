@@ -1,4 +1,5 @@
 from typing import Dict
+import os
 import torch
 from torchvision import datasets
 from torch.utils.data.sampler import SequentialSampler, RandomSampler
@@ -26,19 +27,29 @@ class CityscapesLoader:
 
         data_fine = {phase: datasets.Cityscapes(CITYSCAPES_PATH, split=phase, mode='fine',
                                                 target_type='semantic') for phase in ['train', 'test', 'val']}
-        data_coarse = {phase: datasets.Cityscapes(CITYSCAPES_PATH, split=phase, mode='coarse',
+        if 'gtCoarse' in os.listdir(CITYSCAPES_PATH):
+            data_coarse = {phase: datasets.Cityscapes(CITYSCAPES_PATH, split=phase, mode='coarse',
                                                   target_type='semantic') for phase in ['train_extra', 'val']}
+        else:
+            data_coarse = {
+                'train_extra': [],
+                'val': data_fine['val']
+            }
+
         img_tfms, target_tfms = get_tfms()
         self_supervised_tfms = get_self_supervised_tfms()
 
         self.cityscapes = {phase: CityscapesDataset(data_fine[phase],
                                                     label_percent=label_percent if phase == 'train' else 100,
                                                     transform=img_tfms[phase],
-                                                    target_tfms=target_tfms[phase])
+                                                    target_transform=target_tfms[phase])
                            for phase in ['train', 'val']}
 
+        #self.cityscapes['train'].imgs_path = self.cityscapes['train'].imgs_path[:30]
+        #self.cityscapes['val'].imgs_path = self.cityscapes['val'].imgs_path[:30]
+
         self.cityscapes['self-supervised'] = {
-            phase: CityscapesDataset([data_coarse['train_extra'], data_fine['train'], data_fine['test']]
+            phase: CityscapesDataset([data_fine['train'], data_fine['test']]
                                      if phase == 'train' else data_coarse['val'],
                                      label_percent=label_percent if phase == 'train' else 100,
                                      transform=self_supervised_tfms,
@@ -59,7 +70,8 @@ class CityscapesLoader:
         data = self.cityscapes if mode == 'supervised' else self.cityscapes['self-supervised']
 
         cityscapes_loader = {x: torch.utils.data.DataLoader(data[x], batch_size=batch_size,
-                                                            sampler=RandomSampler(data) if x == 'train' else SequentialSampler(data),
+                                                            sampler=RandomSampler(data[x]) if x == 'train'
+                                                            else SequentialSampler(data[x]),
                                                             drop_last=bool(mode == 'supervised' and x == 'train'),
                                                             num_workers=num_workers,
                                                             pin_memory=True)

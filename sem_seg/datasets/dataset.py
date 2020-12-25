@@ -8,7 +8,7 @@ import torch
 import torchvision
 from torch.utils.data import Dataset
 
-from augmentations import get_pixelwise_tfms
+from .augmentations import get_pixelwise_tfms
 
 
 class CityscapesDataset(Dataset):
@@ -73,7 +73,7 @@ class CityscapesDataset(Dataset):
             mask = self.target_transform(mask)
         return image, mask, seed
 
-    def __getitem(self, idx):
+    def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
         image_path = self.imgs_path[idx]

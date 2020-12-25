@@ -33,7 +33,7 @@ def run_experiment(experiment_config: Dict, load_weights: bool, save_weights: bo
     """
 
     DEFAULT_TRAIN_ARGS = {'epochs': defaults.NUM_EPOCHS, 'batch_size': defaults.BATCH_SIZE,
-                          'num_worker': defaults.NUM_WORKERS}
+                          'num_workers': defaults.NUM_WORKERS}
     train_args = {
         **DEFAULT_TRAIN_ARGS,
         **experiment_config.get("train_args", {})
@@ -62,7 +62,7 @@ def run_experiment(experiment_config: Dict, load_weights: bool, save_weights: bo
 
     num_classes = CityscapesUtils().num_classes
 
-    network_class_ = getattr(networks_module, network_args["backbone"])
+    network_class_ = getattr(networks_module, experiment_config["network"])
     network = network_class_(base, num_classes)
     optim = torch.optim.SGD(network.parameters(), lr=1e-2, momentum=0.9, weight_decay=0.00001)
     lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optim, mode='max', factor=0.1,

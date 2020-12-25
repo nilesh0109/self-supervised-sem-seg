@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib
 from config import defaults
 
-if defaults.MATPLOTLIB_NO_GUI:
-    matplotlib.use('Agg')
+# if defaults.MATPLOTLIB_NO_GUI:
+#     matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import math
@@ -58,22 +58,24 @@ def plot_images(imgs, targets=None, preds=None, title='No title', num_cols=6) ->
     inputs = sanitize_imgs(inputs)
     num_types = len(inputs)
     num_rows, num_cols, plot_width, plot_height = get_plot_sizes(inputs, num_cols)
-    fig, ax = plt.subplots(num_rows, num_cols, figsize=(plot_width, plot_height), num=title, dpi=220,
+    fig, ax = plt.subplots(num_rows, num_cols, figsize=(plot_width, plot_height), num=title, squeeze=False,
                            gridspec_kw={'wspace': 0.05, 'hspace': 0.05, 'left': 0, 'top': 0.95})
     [axi.set_axis_off() for axi in ax.ravel()]
+
     for i in range(len(inputs[0])):
         r, c = (num_types * i) // num_cols, (num_types * i) % num_cols
-        if r >= num_rows: break
+        if r >= num_rows:
+            break
         for j in range(num_types):
             img = inputs[j][i]
             img_to_show = cityscape_utils.label2color(img) if is_mask(img) else img
             ax[r][c + j].imshow(img_to_show)
     if title:
         fig.suptitle(title, fontsize=8)
-    if defaults.MATPLOTLIB_NO_GUI:
-        plt.savefig(str(OUTDIR) + '/plot2.png', bbox_inches='tight')
-    else:
-        plt.show()
+    #if defaults.MATPLOTLIB_NO_GUI:
+    #    plt.savefig(str(OUTDIR) + '/plot2.png', bbox_inches='tight')
+    #else:
+    plt.show()
     return fig
 
 
