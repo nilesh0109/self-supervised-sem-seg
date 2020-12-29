@@ -4,6 +4,8 @@ of the segmentation network(say FCN8s network) is trained first
 in self-supervised way and then the whole network is fine-tuned
 with few semantic segmentation annotations.
 
+![BYOL](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/byol.png)
+
 The baseline segmentation network used is FCN8s and
 various backbones are: Resnet50, Resnet101, DRN50.
 
