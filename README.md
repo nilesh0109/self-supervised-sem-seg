@@ -53,10 +53,10 @@ sem_seg
       - network_utils.py: Utility script for vairous network configurations
       - resnet.py: Various Residual network(Resnet) setup
 training
-   - debugger.py: Debugger script for FCN and BYOL model
-   - train.py: Training file for FCN model
-   - train_byol.py: Training file for BYOL model
-   - utils.py: Utility file for plotting various inputs and outputs 
+      - debugger.py: Debugger script for FCN and BYOL model
+      - train.py: Training file for FCN model
+      - train_byol.py: Training file for BYOL model
+      - utils.py: Utility file for plotting various inputs and outputs 
 - environment.yml: List of virtual environment dependencies
 ```
 # Results:
