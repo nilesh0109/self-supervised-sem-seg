@@ -26,6 +26,39 @@ data.
 
 ``` bash scripts\train.sh```
 
+# Code Walkthrough
+```
+config
+   - defaults.py: Configuration file for setting the defaults
+scripts
+   - create_env.sh: script file for creating the virtual environment with dependencies listed in environment.yml
+   - test.sh: script file for debugging the inputs & outputs to the FCN8s and BYOL network.
+   - train.sh: script for training the segmentation network
+   - unsup_train.sh: script for training the unsupervised learning(BYOL) network
+sem_seg
+   datasets
+      - augmentations.py: Utility file for various augmentations
+      - dataloader.py: Script for loading cityscapes dataloader
+      - dataset.py: Custom cityscapes dataset for applying same set of augmentations to images and masks
+      - datautils.py: Script for cityscapes labels formatting
+      - transforms.py: Custom transformation scripts
+   models
+      - base.py: Base class for all models with train and evaluation pipeline
+      - eval_metrices.py: Script for different evaluation metrices such as mIOU, accuracy, etc.
+      - segmentation.py: Class for semantic segmentaion model inherited from base model
+      - self_supervised_model.py: Self-supervised-model(BYOL) training pipeline 
+   network
+      - byol.py: BYOL network setup
+      - fcn.py: Various FCN(Fully Convolutional Network) setup
+      - network_utils.py: Utility script for vairous network configurations
+      - resnet.py: Various Residual network(Resnet) setup
+training
+   - debugger.py: Debugger script for FCN and BYOL model
+   - train.py: Training file for FCN model
+   - train_byol.py: Training file for BYOL model
+   - utils.py: Utility file for plotting various inputs and outputs 
+- environment.yml: List of virtual environment dependencies
+```
 # Results:
 Resnet50 based Semantic segmentation FCN8s network, gets 10% improvement in mIOU on cityscapes dataset if it is first pretraited in BYOL manner using 20k unlabelled images and then fine-tuned with 5k labelled cityscapes images.
 
