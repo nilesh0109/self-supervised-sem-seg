@@ -26,6 +26,14 @@ data.
 
 ``` bash scripts\train.sh```
 
+# Results:
+Resnet50 based Semantic segmentation FCN8s network, gets 10% improvement in mIOU on cityscapes dataset if it is first pretraited in BYOL manner using 20k unlabelled images and then fine-tuned with 5k labelled cityscapes images.
+
+X-axis in below graph shows the percetage of labels(out of 5k images) used in fine-tuning step. Top dotted line in the graph is Resnet50 trained from imagenet weights and bottom dotted line is Resnet50 trained from random weights(no pretraining). Middle two plots are Resnet50 pretrained using BYOL and another variant of Resnet50(Resnet50 with weight standarization and group normalization[2] applied) trained using BYOL[1]. Red arrows clearly indicates the success of BYOL for visual representation learning.
+
+![BYOL gain](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/BYOL_gain.png)
+
+
 # Code Walkthrough
 ```
 config
@@ -59,13 +67,6 @@ training
       - utils.py: Utility file for plotting various inputs and outputs 
 - environment.yml: List of virtual environment dependencies
 ```
-# Results:
-Resnet50 based Semantic segmentation FCN8s network, gets 10% improvement in mIOU on cityscapes dataset if it is first pretraited in BYOL manner using 20k unlabelled images and then fine-tuned with 5k labelled cityscapes images.
-
-X-axis in below graph shows the percetage of labels(out of 5k images) used in fine-tuning step. Top dotted line in the graph is Resnet50 trained from imagenet weights and bottom dotted line is Resnet50 trained from random weights(no pretraining). Middle two plots are Resnet50 pretrained using BYOL and another variant of Resnet50(Resnet50 with weight standarization and group normalization[2] applied) trained using BYOL[1]. Red arrows clearly indicates the success of BYOL for visual representation learning.
-
-![BYOL gain](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/BYOL_gain.png)
-
 # References
 1. Grill, Jean-Bastien, et al. "Bootstrap your own latent: A new approach to self-supervised learning." arXiv preprint arXiv:2006.07733 (2020).
 2. Qiao, Siyuan et al. “Micro-Batch Training with Batch-Channel Normalization and Weight Standardization.” (2019).
