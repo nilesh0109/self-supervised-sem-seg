@@ -31,7 +31,7 @@ Resnet50 based Semantic segmentation FCN8s network, gets 10% improvement in mIOU
 
 X-axis in below graph shows the percetage of labels(out of 5k images) used in fine-tuning step. Top dotted line in the graph is Resnet50 trained from imagenet weights and bottom dotted line is Resnet50 trained from random weights(no pretraining). Middle two plots are Resnet50 pretrained using BYOL and another variant of Resnet50(Resnet50 with weight standarization and group normalization[2] applied) trained using BYOL[1]. Red arrows clearly indicates the success of BYOL for visual representation learning.
 
-![BYOL gain](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/BYOL_gain.png)
+![BYOL gain](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/byol_gain.png)
 
 
 # Code Walkthrough
