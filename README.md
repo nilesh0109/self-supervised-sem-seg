@@ -7,9 +7,8 @@ with few semantic segmentation annotations.
 
 ![BYOL](https://github.com/nilesh0109/self-supervised-sem-seg/blob/master/byol.png)
 
-Read more about BYOL architecture in the blog post: https://nilesh0109.medium.com/hands-on-review-byol-bootstrap-your-own-latent-67e4c5744e1b
-The baseline segmentation network used is FCN8s and
-various backbones are: Resnet50, Resnet101, DRN50.
+Read more about BYOL architecture in the blog post: https://nilesh0109.medium.com/hands-on-review-byol-bootstrap-your-own-latent-67e4c5744e1b <br>
+The baseline segmentation network used is FCN8s and various backbones are: Resnet50, Resnet101, DRN50.
 
 To reproduce the experiments, follow the below steps.
 
