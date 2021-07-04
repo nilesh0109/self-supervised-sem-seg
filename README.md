@@ -1,4 +1,4 @@
-# Self-suerpvised Semantic Segmentation 
+# Self-supervised Semantic Segmentation 
 This repository is related to semantic segmentation models trainined in
 self-supervised manner. In a two step training process, the backbone
 of the segmentation network(say FCN8s network) is trained first
